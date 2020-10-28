@@ -1,4 +1,4 @@
-// JShellCalc v1.1
+// JShellCalc v1.1.1
 // by crispycat
 
 var Operations = {
@@ -55,7 +55,7 @@ var Operations = {
 		values: ["x", "base"],
 		func: function(values) {
 			if (values.base < 2) throw "Base must be >= 2";
-			return values.x ** (1 / valuse.base);
+			return values.x ** (1 / values.base);
 		}
 	},
 
@@ -250,7 +250,7 @@ function joinobj(obj, sep) {
 	return (str.length == 0) ? "" : str.substring(0, str.length - sep.length);
 }
 
-console.log("[JShellCalc v1.1 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
+console.log("[JShellCalc v1.1.1 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
 
 while (true) {
 	var choice = prompt("Please select an operation or press [Ctrl]+[C] to exit: ").toLowerCase();
@@ -280,7 +280,7 @@ while (true) {
 				var sbreak = false;
 				for (var v in op.values) {
 					var vc = prompt(`Please enter value '${op.values[v]}': `).toLowerCase();
-					if (parseFloat(vc)) {
+					if (parseFloat(vc) != NaN) {
 						values[op.values[v]] = parseFloat(vc);
 					} else {
 						for (var c in Constants)
