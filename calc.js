@@ -1,4 +1,4 @@
-// JShellCalc v1.0.1
+// JShellCalc v1.1
 // by crispycat
 
 var Operations = {
@@ -115,11 +115,27 @@ var Operations = {
 		}
 	},
 
+	Value: {
+		names: ["value", "val"],
+		values: ["x"],
+		func: function(values) {
+			return values.x;
+		}
+	},
+
 	Sign: {
 		names: ["sign"],
 		values: ["x"],
 		func: function(values) {
 			return Math.sign(values.x);
+		}
+	},
+
+	Negate: {
+		names: ["negate", "neg"],
+		values: ["x"],
+		func: function(values) {
+			return -(values.x);
 		}
 	},
 
@@ -132,7 +148,7 @@ var Operations = {
 	},
 
 	Cosine: {
-		names: ["cossine", "cos"],
+		names: ["cosine", "cos"],
 		values: ["x"],
 		func: function(values) {
 			return Math.cos(values.x);
@@ -215,7 +231,10 @@ Constants = {
 	ln2: Math.LN2,
 	ln10: Math.LN10,
 	log2e: Math.LOG2E,
-	log10e: Math.LOG10E
+	log10e: Math.LOG10E,
+	inf: 1 / 0,
+	neginf: -1 / 0,
+	lastop: 0
 };
 
 var prompt = require("prompt-sync")({sigint: true});
@@ -231,7 +250,7 @@ function joinobj(obj, sep) {
 	return (str.length == 0) ? "" : str.substring(0, str.length - sep.length);
 }
 
-console.log("[JShellCalc v1.0.1 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
+console.log("[JShellCalc v1.1 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
 
 while (true) {
 	var choice = prompt("Please select an operation or press [Ctrl]+[C] to exit: ").toLowerCase();
@@ -246,6 +265,7 @@ while (true) {
 		case "constants":
 		case "consts":
 			console.log(bar("Available constants"));
+			console.log("Note: 'lastop' is not really a constant; it is the result of the last operation")
 			for (var c in Constants) console.log(`+ '${c}': ${Constants[c]}`);
 			console.log(bar(null, true));
 			break;
@@ -281,7 +301,8 @@ while (true) {
 				console.log(bar("Result"));
 				console.log(`> ${op.names[0]}(${joinobj(values, ", ")})`);
 				try {
-					console.log(`\t= ${op.func(values)}`);
+					Constants.lastop = op.func(values);
+					console.log(`\t= ${Constants.lastop}`);
 				} catch (e) {
 					console.log(`Error: ${e}`);
 				}
