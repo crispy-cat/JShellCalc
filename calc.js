@@ -1,4 +1,4 @@
-// JShellCalc v1.0
+// JShellCalc v1.0.1
 // by crispycat
 
 var Operations = {
@@ -30,7 +30,7 @@ var Operations = {
 		names: ["division", "div", "quotient", "quot"],
 		values: ["dividend", "divisor"],
 		func: function(values) {
-			return values.left / values.right;
+			return values.dividend / values.divisor;
 		}
 	},
 
@@ -38,7 +38,7 @@ var Operations = {
 		names: ["modulo", "mod", "remainder", "rem"],
 		values: ["dividend", "divisor"],
 		func: function(values) {
-			return values.left % values.right;
+			return values.dividend % values.divisor;
 		}
 	},
 
@@ -46,7 +46,7 @@ var Operations = {
 		names: ["exponentiation", "exp", "power", "pow"],
 		values: ["base", "power"],
 		func: function(values) {
-			return values.left ** values.right;
+			return values.base ** values.power;
 		}
 	},
 
@@ -54,7 +54,7 @@ var Operations = {
 		names: ["root", "radical"],
 		values: ["x", "base"],
 		func: function(values) {
-			if (base < 2) throw "Base must be >= 2";
+			if (values.base < 2) throw "Base must be >= 2";
 			return values.x ** (1 / valuse.base);
 		}
 	},
@@ -71,7 +71,7 @@ var Operations = {
 		names: ["logarithm", "log"],
 		values: ["x", "base"],
 		func: function(values) {
-			return Math.log(values.base) / Math.log(values.x);
+			return Math.log(values.x) / Math.log(values.base);
 		}
 	},
 
@@ -103,15 +103,15 @@ var Operations = {
 		names: ["round"],
 		values: ["x"],
 		func: function(values) {
-			return Math.round(x);
+			return Math.round(values.x);
 		}
 	},
 
 	AbsoluteValue: {
-		names: ["round"],
+		names: ["absolutevalue", "abs"],
 		values: ["x"],
 		func: function(values) {
-			return Math.abs(x);
+			return Math.abs(values.x);
 		}
 	},
 
@@ -119,7 +119,7 @@ var Operations = {
 		names: ["sign"],
 		values: ["x"],
 		func: function(values) {
-			return Math.sign(x);
+			return Math.sign(values.x);
 		}
 	},
 
@@ -231,7 +231,7 @@ function joinobj(obj, sep) {
 	return (str.length == 0) ? "" : str.substring(0, str.length - sep.length);
 }
 
-console.log("[JShellCalc v1.0 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
+console.log("[JShellCalc v1.0.1 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
 
 while (true) {
 	var choice = prompt("Please select an operation or press [Ctrl]+[C] to exit: ").toLowerCase();
@@ -250,7 +250,7 @@ while (true) {
 			console.log(bar(null, true));
 			break;
 		default:
-			var op;
+			var op = null;
 			for (var o in Operations)
 				for (var n in Operations[o].names)
 					if (Operations[o].names[n] == choice) op = Operations[o];
