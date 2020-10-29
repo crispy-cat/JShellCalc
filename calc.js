@@ -1,220 +1,229 @@
-// JShellCalc v1.1.1
+// JShellCalc v1.2
 // by crispycat
 
 var Operations = {
 	Addition: {
 		names: ["addition", "add", "plus", "sum"],
-		values: ["left", "right"],
-		func: function(values) {
-			return values.left + values.right;
+		operands: ["left", "right"],
+		func: function(operands) {
+			return operands.left + operands.right;
 		}
 	},
 
 	Subtraction: {
 		names: ["subtraction", "sub", "minus", "difference", "diff"],
-		values: ["left", "right"],
-		func: function(values) {
-			return values.left - values.right;
+		operands: ["left", "right"],
+		func: function(operands) {
+			return operands.left - operands.right;
 		}
 	},
 
 	Multiplication: {
 		names: ["multiplication", "mul", "times", "product"],
-		values: ["left", "right"],
-		func: function(values) {
-			return values.left * values.right;
+		operands: ["left", "right"],
+		func: function(operands) {
+			return operands.left * operands.right;
 		}
 	},
 
 	Division: {
 		names: ["division", "div", "quotient", "quot"],
-		values: ["dividend", "divisor"],
-		func: function(values) {
-			return values.dividend / values.divisor;
+		operands: ["dividend", "divisor"],
+		func: function(operands) {
+			return operands.dividend / operands.divisor;
 		}
 	},
 
 	Modulo: {
 		names: ["modulo", "mod", "remainder", "rem"],
-		values: ["dividend", "divisor"],
-		func: function(values) {
-			return values.dividend % values.divisor;
+		operands: ["dividend", "divisor"],
+		func: function(operands) {
+			return operands.dividend % operands.divisor;
 		}
 	},
 
 	Exponentiation: {
 		names: ["exponentiation", "exp", "power", "pow"],
-		values: ["base", "power"],
-		func: function(values) {
-			return values.base ** values.power;
+		operands: ["base", "power"],
+		func: function(operands) {
+			return operands.base ** operands.power;
 		}
 	},
 
 	Root: {
 		names: ["root", "radical"],
-		values: ["x", "base"],
-		func: function(values) {
-			if (values.base < 2) throw "Base must be >= 2";
-			return values.x ** (1 / values.base);
+		operands: ["x", "base"],
+		func: function(operands) {
+			if (operands.base < 2) throw "Base must be >= 2";
+			return operands.x ** (1 / operands.base);
 		}
 	},
 
 	SquareRoot: {
 		names: ["squareroot", "sqrt"],
-		values: ["x"],
-		func: function(values) {
-			return values.x ** 0.5;
+		operands: ["x"],
+		func: function(operands) {
+			return operands.x ** 0.5;
 		}
 	},
 
 	Logarithm: {
 		names: ["logarithm", "log"],
-		values: ["x", "base"],
-		func: function(values) {
-			return Math.log(values.x) / Math.log(values.base);
+		operands: ["x", "base"],
+		func: function(operands) {
+			return Math.log(operands.x) / Math.log(operands.base);
 		}
 	},
 
 	NaturalLogarithm: {
 		names: ["naturallogarithm", "naturallog", "ln"],
-		values: ["x"],
-		func: function(values) {
-			return Math.log(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.log(operands.x);
 		}
 	},
 
 	Floor: {
 		names: ["floor", "truncate", "trunc"],
-		values: ["x"],
-		func: function(values) {
-			return Math.floor(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.floor(operands.x);
 		}
 	},
 
 	Ceiling: {
 		names: ["ceiling", "ceil"],
-		values: ["x"],
-		func: function(values) {
-			return Math.ceil(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.ceil(operands.x);
 		}
 	},
 
 	Round: {
 		names: ["round"],
-		values: ["x"],
-		func: function(values) {
-			return Math.round(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.round(operands.x);
 		}
 	},
 
 	AbsoluteValue: {
 		names: ["absolutevalue", "abs"],
-		values: ["x"],
-		func: function(values) {
-			return Math.abs(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.abs(operands.x);
 		}
 	},
 
 	Value: {
 		names: ["value", "val"],
-		values: ["x"],
-		func: function(values) {
-			return values.x;
+		operands: ["x"],
+		func: function(operands) {
+			return operands.x;
 		}
 	},
 
 	Sign: {
 		names: ["sign"],
-		values: ["x"],
-		func: function(values) {
-			return Math.sign(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.sign(operands.x);
 		}
 	},
 
 	Negate: {
 		names: ["negate", "neg"],
-		values: ["x"],
-		func: function(values) {
-			return -(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return -(operands.x);
 		}
 	},
 
 	Sine: {
 		names: ["sine", "sin"],
-		values: ["x"],
-		func: function(values) {
-			return Math.sin(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.sin(operands.x);
 		}
 	},
 
 	Cosine: {
 		names: ["cosine", "cos"],
-		values: ["x"],
-		func: function(values) {
-			return Math.cos(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.cos(operands.x);
 		}
 	},
 
 	Tangent: {
 		names: ["tangent", "tan"],
-		values: ["x"],
-		func: function(values) {
-			return Math.tan(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return Math.tan(operands.x);
 		}
 	},
 
 	Cotangent: {
 		names: ["cotangent", "cot"],
-		values: ["x"],
-		func: function(values) {
-			return 1 / Math.tan(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return 1 / Math.tan(operands.x);
 		}
 	},
 
 	Secant: {
 		names: ["secant", "sec"],
-		values: ["x"],
-		func: function(values) {
-			return 1 / Math.cos(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return 1 / Math.cos(operands.x);
 		}
 	},
 
 	Cosecant: {
 		names: ["cosecant", "csc"],
-		values: ["x"],
-		func: function(values) {
-			return 1 / Math.sin(values.x);
+		operands: ["x"],
+		func: function(operands) {
+			return 1 / Math.sin(operands.x);
 		}
 	},
 
 	DegreesToRadians: {
 		names: ["degreestoradians", "rad"],
-		values: ["x"],
-		func: function(values) {
-			return Math.PI * values.x / 180;
+		operands: ["x"],
+		func: function(operands) {
+			return Math.PI * operands.x / 180;
 		}
 	},
 
 	RadiansToDegrees: {
 		names: ["radianstodegrees", "deg"],
-		values: ["x"],
-		func: function(values) {
-			return values.x * 180 / Math.PI;
+		operands: ["x"],
+		func: function(operands) {
+			return operands.x * 180 / Math.PI;
 		}
 	},
 
 	Random: {
 		names: ["random", "rnd"],
-		values: ["min", "max"],
-		func: function(values) {
-			if (values.min > values.max) {
-				var _ = values.min;
-				values.min = values.max;
-				values.max = _;
+		operands: ["min", "max"],
+		func: function(operands) {
+			if (operands.min > operands.max) {
+				var _ = operands.min;
+				operands.min = operands.max;
+				operands.max = _;
 			}
-			return Math.random() * (values.max - values.min) + values.min;
+			return Math.random() * (operands.max - operands.min) + operands.min;
 		}
-	}
+	},
+
+	Memory: {
+		names: ["memory", "mem"],
+		operands: ["value"],
+		func: function(operands) {
+			Constants.memory = operands.value;
+			return `Stored value ${Constants.memory}`;
+		}
+	},
 };
 
 Constants = {
@@ -234,7 +243,8 @@ Constants = {
 	log10e: Math.LOG10E,
 	inf: 1 / 0,
 	neginf: -1 / 0,
-	lastop: 0
+	lastop: 0,
+	memory: 0
 };
 
 var prompt = require("prompt-sync")({sigint: true});
@@ -250,44 +260,45 @@ function joinobj(obj, sep) {
 	return (str.length == 0) ? "" : str.substring(0, str.length - sep.length);
 }
 
-console.log("[JShellCalc v1.1.1 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\n");
+console.log("[JShellCalc v1.2 by crispycat]\nType 'list' for available operations or 'constants' for available constants.\nSyntax: <operator> [operands...]");
 
 while (true) {
-	var choice = prompt("Please select an operation or press [Ctrl]+[C] to exit: ").toLowerCase();
+	var choice = prompt("Please type a command or press [Ctrl]+[C] to exit: ").toLowerCase();
 	switch (choice) {
 		case "list":
 		case "operations":
 		case "ops":
 			console.log(bar("Available operations"));
-			for (var o in Operations) console.log(`+ ${Operations[o].names[0]}(${Operations[o].values.join(", ")})`);
+			for (var o in Operations) console.log(`+ ${Operations[o].names[0]}(${Operations[o].operands.join(", ")})`);
 			console.log(bar(null, true));
 			break;
 		case "constants":
 		case "consts":
 			console.log(bar("Available constants"));
-			console.log("Note: 'lastop' is not really a constant; it is the result of the last operation")
+			console.log("Note: 'lastop' is not really a constant; it is the result of the last operation.\n'memory' can be written to using the 'memory' operation.");
 			for (var c in Constants) console.log(`+ '${c}': ${Constants[c]}`);
 			console.log(bar(null, true));
 			break;
 		default:
-			var op = null;
+			choice = choice.replace(/[, \(\)]/g, "!").split("!").filter((v) => { return v != ""; });
+			var op = choice.shift();
 			for (var o in Operations)
 				for (var n in Operations[o].names)
-					if (Operations[o].names[n] == choice) op = Operations[o];
+					if (Operations[o].names[n] == op) op = Operations[o];
 
-			if (op) {
-				var values = {};
+			if (typeof op == "object") {
+				var operands = {};
 				var sbreak = false;
-				for (var v in op.values) {
-					var vc = prompt(`Please enter value '${op.values[v]}': `).toLowerCase();
-					if (parseFloat(vc) != NaN) {
-						values[op.values[v]] = parseFloat(vc);
+				for (var v in op.operands) {
+					var vc = choice.shift();
+					if (!isNaN(parseFloat(vc))) {
+						operands[op.operands[v]] = parseFloat(vc);
 					} else {
 						for (var c in Constants)
 							if (c == vc) vc = Constants[c];
 
-						if (parseFloat(vc)) {
-							values[op.values[v]] = vc;
+						if (!isNaN(parseFloat(vc))) {
+							operands[op.operands[v]] = vc;
 						} else {
 							console.log(`Input Error: '${vc}' is not a valid number or constant!`);
 							sbreak = true;
@@ -299,16 +310,17 @@ while (true) {
 				if (sbreak) break;
 
 				console.log(bar("Result"));
-				console.log(`> ${op.names[0]}(${joinobj(values, ", ")})`);
+				console.log(`> ${op.names[0]}(${joinobj(operands, ", ")})`);
 				try {
-					Constants.lastop = op.func(values);
+					Constants.lastop = op.func(operands);
 					console.log(`\t= ${Constants.lastop}`);
+					if (op.names[0] == "memory") Constants.lastop = Constants.memory;
 				} catch (e) {
 					console.log(`Error: ${e}`);
 				}
 				console.log(bar(null, true));
 			} else {
-				console.log(`Operation ${choice} does not exist! Type 'list' for available operations.`);
+				console.log(`Operation '${op}' does not exist! Type 'list' for available operations.`);
 			}
 	}
 }
